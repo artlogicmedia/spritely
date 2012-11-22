@@ -1,0 +1,1 @@
+src/0.6.1/jquery.spritely-0.6.1.js
