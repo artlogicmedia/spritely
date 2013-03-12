@@ -4,7 +4,7 @@ Spritely is a simple, lightweight jQuery plugin for animating sprites and dynami
 
 ## Documentation and examples
 
-For documentation and example code, see the [documentation page on the Spritely website](http://spritely.net/documentation/). For examples of sites which use Spritely, see the [gallery page](http://spritely.net/gallery/). If you would like your site to be listed in the gallery, [drop us a line](http://spritely.net/contact/).
+For documentation and example code, see the [documentation page on the Spritely website](http://spritely.net/documentation/). For examples of sites that use Spritely, see the [gallery page](http://spritely.net/gallery/). If you would like your site to be listed in the gallery, [drop us a line](http://spritely.net/contact/).
 
 ## Previous releases
 
