@@ -1,6 +1,6 @@
 # Spritely
 
-Spritely is a jQuery plugin created by Artlogic for creating dynamic character and background animation in pure HTML and JavaScript. It's a simple, light-weight plugin with methods for creating animated sprites and dynamic scrolling backgrounds.
+Spritely is a simple, lightweight jQuery plugin for animating sprites and dynamic scrolling backgrounds.
 
 ## Documentation and examples
 
