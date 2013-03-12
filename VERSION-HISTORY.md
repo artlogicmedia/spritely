@@ -58,7 +58,8 @@ $('#sprite').lockTo('#background, {'left': 380, 'top': -60, 'bg_img_width': 1110
 * Animate function will stop cycling after play_frames has completed
 
 ## Version 0.2 beta
-* Added isDraggable method (requires jquery-ui) ```
+* Added isDraggable method (requires jquery-ui)
+```
 $('#sprite').sprite().isDraggable({start: null, stop: function() {
     alert('Ouch! You dropped me!');
 });
