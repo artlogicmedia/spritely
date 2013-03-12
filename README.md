@@ -6,6 +6,10 @@ Spritely is a jQuery plugin created by Artlogic for creating dynamic character a
 
 For documentation and example code, see the [documentation page on the Spritely website](http://spritely.net/documentation/). For examples of sites which use Spritely, see the [gallery page](http://spritely.net/gallery/). If you would like your site to be listed in the gallery, [drop us a line](http://spritely.net/contact/).
 
+## Previous releases
+
+To download previous releases of Spritely, see (this repostory)[https://github.com/artlogicmedialtd/spritely-archive].
+
 ## License
 
 Spritely is dual-licensed under the [MIT license](http://opensource.org/licenses/MIT) and the [GNU Public License version 2](http://www.gnu.org/licenses/gpl-2.0.html).
