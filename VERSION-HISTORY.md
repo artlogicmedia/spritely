@@ -12,6 +12,7 @@
 
 ## Version 0.6
 * Added events to the .sprite() method: on_first_frame, on_last_frame, on_frame:
+
 ```javascript
     $('#sprite').sprite({
         fps: 9,
