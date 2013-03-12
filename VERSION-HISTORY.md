@@ -6,7 +6,7 @@
 
 ## Version 0.6.1
 * Added some refinements from [Gary Hussey](http://bossninja.com/). Thanks Gary.
-  spritely now correctly clears timeouts/intervals when destroying sprites.
+* Spritely now correctly clears timeouts/intervals when destroying sprites.
 * Added a goToFrame() method so you can set the current frame at any point.
 * Fixed the .spStop method where the 'last FPS' value was not being set, and the user specified FPS being ignore when .spStart was called.
 
