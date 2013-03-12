@@ -1,5 +1,5 @@
 /*
- * jQuery spritely 0.6.1
+ * jQuery spritely 0.6.2
  * http://spritely.net/
  *
  * Documentation:
