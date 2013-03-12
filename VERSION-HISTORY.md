@@ -1,7 +1,7 @@
 
 # Spritely version history
 
-To download previous releases of Spritely, see (this repostory)[https://github.com/artlogicmedialtd/spritely-archive].
+To download previous releases of Spritely, see [this repostory](https://github.com/artlogicmedialtd/spritely-archive).
 
 ## Version 0.6.2
 * Removed reliance on jQuery.browser; perform an actual feature check.
