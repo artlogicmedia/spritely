@@ -12,7 +12,7 @@ To download previous releases of Spritely, see [this repostory](https://github.c
 
 ## License
 
-Spritely is dual-licensed under the [MIT license](http://opensource.org/licenses/MIT) and the [GNU Public License version 2](http://www.gnu.org/licenses/gpl-2.0.html).
+Spritely is dual-licensed under the [MIT license](https://github.com/artlogicmedia/spritely/blob/master/MIT-LICENSE.md) and the [GNU Public License version 2](https://github.com/artlogicmedia/spritely/blob/master/GPLv2-LICENSE.md).
 
 ## Authorship information
 

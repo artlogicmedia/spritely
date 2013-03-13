@@ -1,0 +1,43 @@
+{
+    "name": "spritely",
+    "title": "Spritely",
+    "description": "jQuery plugin for animating CSS sprites.",
+    "keywords": [
+        "css",
+        "sprites",
+        "animation"
+    ],
+
+    "version": "0.6.3",
+    "author": {
+        "name": "Artlogic Media and other contributors",
+        "url": "https://github.com/artlogicmedia/spritely"
+    },
+
+    "maintainers": [
+        {
+            "name": "Artlogic Media",
+            "email": "info@artlogic.net",
+            "url": "http://artlogic.net"
+        }
+    ],
+
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/artlogicmedia/spritely/blob/master/MIT-LICENSE.md"
+        },
+        {
+            "type": "GPL v2",
+            "url": "https://github.com/artlogicmedia/spritely/blob/master/GPLv2-LICENSE.md"
+        }
+    ],
+
+    "bugs": "https://github.com/artlogicmedia/spritely/issues",
+    "homepage": "http://www.spritely.net/",
+    "docs": "http://www.spritely.net/documentation/",
+    "download": "http://www.spritely.net/download/",
+    "dependencies": {
+        "jquery": ">=1.3"
+    }
+}
