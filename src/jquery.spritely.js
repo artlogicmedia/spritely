@@ -1,5 +1,5 @@
 /*
- * jQuery spritely 0.6.2
+ * jQuery spritely 0.6.3
  * http://spritely.net/
  *
  * Documentation:
@@ -7,7 +7,7 @@
  *
  * Copyright 2010-2011, Peter Chater, Artlogic Media Ltd, http://www.artlogic.net/
  * Dual licensed under the MIT or GPL Version 2 licenses.
- * 
+ *
  */
 
 (function($) {
@@ -77,7 +77,7 @@
                     if ($._spritely.instances[el_id]['remaining_frames'] == 0) {
                         $._spritely.instances[el_id]['remaining_frames'] = -1;
                         delete $._spritely.instances[el_id]['remaining_frames'];
-                        return;
+                        return this;
                     } else {
                         animate(el);
                     }
@@ -86,33 +86,50 @@
                 }
             } else if (options.type == 'pan') {
                 if (!$._spritely.instances[el_id]['_stopped']) {
-                                        if (options.dir == 'up') {
-                                            $._spritely.instances[el_id]['l'] = $._spritely.getBgX(el).replace('px', '');
-                                            $._spritely.instances[el_id]['t'] = ($._spritely.instances[el_id]['t'] - (options.speed || 1)) || 0;
-                                        }
-                                        else if (options.dir == 'down') {
-                                            $._spritely.instances[el_id]['l'] = $._spritely.getBgX(el).replace('px', '');
-                                            $._spritely.instances[el_id]['t'] = ($._spritely.instances[el_id]['t'] + (options.speed || 1)) || 0;
-                                        }
-                    else if (options.dir == 'left') {
-                        $._spritely.instances[el_id]['l'] = ($._spritely.instances[el_id]['l'] - (options.speed || 1)) || 0;
-                                                $._spritely.instances[el_id]['t'] = $._spritely.getBgY(el).replace('px', '');
-                    } else {
-                        $._spritely.instances[el_id]['l'] = ($._spritely.instances[el_id]['l'] + (options.speed || 1)) || 0;
-                                                $._spritely.instances[el_id]['t'] = $._spritely.getBgY(el).replace('px', '');
+
+                    // As we pan, reduce the offset to the smallest possible
+                    // value to ease the load on the browser. This step is
+                    // skipped if the image hasn't loaded yet.
+                    var speed = options.speed || 1;
+
+                    switch (options.dir) {
+
+                        case 'up':
+                            speed *= -1;
+                        case 'down':
+                            if (!$._spritely.instances[el_id]['l'])
+                                $._spritely.instances[el_id]['l'] = $._spritely.getBgX(el).replace('px', '');
+                            $._spritely.instances[el_id]['t'] = ($._spritely.instances[el_id]['t'] + speed) || 0;
+                            if (options.img_height)
+                                $._spritely.instances[el_id]['t'] %= options.img_height;
+                            break;
+
+                        case 'left':
+                            speed *= -1;
+                        case 'right':
+                            if (!$._spritely.instances[el_id]['t'])
+                                $._spritely.instances[el_id]['t'] = $._spritely.getBgY(el).replace('px', '');
+                            $._spritely.instances[el_id]['l'] = ($._spritely.instances[el_id]['l'] + speed) || 0;
+                            if (options.img_width)
+                                $._spritely.instances[el_id]['l'] %= options.img_width;
+                            break;
                     }
 
-                                        // When assembling the background-position string, care must be taken
-                                        // to ensure correct formatting.. <ricky.hewitt@artlogic.net>
-                                        var bg_left = $._spritely.instances[el_id]['l'].toString();
-                                        if (bg_left.indexOf('%') == -1) {
-                                            bg_left += 'px ';
-                                        } else { bg_left += ' '; }
+                    // When assembling the background-position string, care must be taken
+                    // to ensure correct formatting.
+                    var bg_left = $._spritely.instances[el_id]['l'].toString();
+                    if (bg_left.indexOf('%') == -1) {
+                        bg_left += 'px ';
+                    } else {
+                        bg_left += ' ';
+                    }
 
-                                        var bg_top = $._spritely.instances[el_id]['t'].toString();
-                                        if (bg_top.indexOf('%') == -1) {
-                                            bg_top += 'px ';
-                                        } else { bg_top += ' '; }
+                    var bg_top = $._spritely.instances[el_id]['t'].toString();
+                    if (bg_top.indexOf('%') == -1) {
+                        bg_top += 'px ';
+                    } else {
+                        bg_top += ' ';
+                    }
 
                     $(el).css('background-position', bg_left + bg_top);
                 }
@@ -160,23 +177,70 @@
                 }
             }
             return r;
+        },
+
+        _spStrip: function(s, chars) {
+            // Strip any character in 'chars' from the beginning or end of
+            // 'str'. Like Python's .strip() method, or jQuery's $.trim()
+            // function (but allowing you to specify the characters).
+            while (s.length) {
+                var i, sr, nos = false, noe = false;
+                for (i=0;i<chars.length;i++) {
+                    var ss = s.slice(0, 1);
+                    sr = s.slice(1);
+                    if (chars.indexOf(ss) > -1)
+                        s = sr;
+                    else
+                        nos = true;
+                }
+                for (i=0;i<chars.length;i++) {
+                    var se = s.slice(-1);
+                    sr = s.slice(0, -1);
+                    if (chars.indexOf(se) > -1)
+                        s = sr;
+                    else
+                        noe = true;
+                }
+                if (nos && noe)
+                    return s;
+            }
+            return '';
         }
     };
     $.fn.extend({
+
         spritely: function(options) {
-            var options = $.extend({
-                type: 'sprite',
-                do_once: false,
-                width: null,
-                height: null,
-                fps: 12,
-                no_of_frames: 2,
-                stop_after: null
-            }, options || {});
-            var el_id = $(this).attr('id');
+
+            var $this = $(this),
+                el_id = $this.attr('id'),
+                background_image = (new Image()),
+                background_image_src = $._spritely._spStrip($this.css('background-image'), 'url("); ');
+
+            options = $.extend({
+                    type: 'sprite',
+                    do_once: false,
+                    width: null,
+                    height: null,
+                    img_width: 0,
+                    img_height: 0,
+                    fps: 12,
+                    no_of_frames: 2,
+                    stop_after: null
+                }, options || {});
+
+            background_image.onload = function() {
+                options.img_width = background_image.width;
+                options.img_height = background_image.height;
+            }
+
+            background_image.src = background_image_src;
+
+            options.img = background_image;
+
             if (!$._spritely.instances) {
                 $._spritely.instances = {};
             }
+
             if (!$._spritely.instances[el_id]) {
                 if (options.start_at_frame) {
                     $._spritely.instances[el_id] = {current_frame: options.start_at_frame - 1};
@@ -184,23 +248,32 @@
                     $._spritely.instances[el_id] = {current_frame: -1};
                 }
             }
+
             $._spritely.instances[el_id]['type'] = options.type;
             $._spritely.instances[el_id]['depth'] = options.depth;
+
             options.el = this;
-            options.width = options.width || $(this).width() || 100;
-            options.height = options.height || $(this).height() || 100;
+            options.width = options.width || $this.width() || 100;
+            options.height = options.height || $this.height() || 100;
+
             var get_rate = function() {
                 return parseInt(1000 / options.fps);
             }
+
             if (!options.do_once) {
-                window.setTimeout(function() {
+                setTimeout(function() {
                     $._spritely.animate(options);
                 }, get_rate(options.fps));
             } else {
-                $._spritely.animate(options);
+                setTimeout(function() {
+                    $._spritely.animate(options);
+                }, 0);
             }
-            return this; // so we can chain events
+
+            return this;
+
         },
+
         sprite: function(options) {
             var options = $.extend({
                 type: 'sprite',

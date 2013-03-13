@@ -3,6 +3,9 @@
 
 To download previous releases of Spritely, see [this repostory](https://github.com/artlogicmedialtd/spritely-archive).
 
+## Version 0.6.3
+* Fixed an issue that caused the background of panning sprites to disappear on some browsers. This affects at least Firefox on 64-bit Windows 7. Offset values are now reduced to the smallest (correct) value possible on each update.
+
 ## Version 0.6.2
 * Removed reliance on jQuery.browser; perform an actual feature check.
 
