@@ -1,7 +1,7 @@
 {
     "name": "spritely",
     "title": "Spritely",
-    "description": "jQuery plugin for animating CSS sprites.",
+    "description": "Spritely is a jQuery plugin for creating dynamic character and background animation in pure HTML and JavaScript. For examples of sites that use Spritely animations, see http://www.spritely.net/gallery/",
     "keywords": [
         "css",
         "sprites",

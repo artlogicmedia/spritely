@@ -8,7 +8,7 @@ For documentation and example code, see the [documentation page on the Spritely 
 
 ## Previous releases
 
-To download previous releases of Spritely, see [this repostory](https://github.com/artlogicmedia/spritely-archive).
+To download previous releases of Spritely, see [the spritely-archive repostory](https://github.com/artlogicmedia/spritely-archive).
 
 ## License
 
