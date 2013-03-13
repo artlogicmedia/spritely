@@ -1,6 +1,6 @@
 # Spritely
 
-Spritely is a simple, lightweight jQuery plugin for animating sprites and dynamic scrolling backgrounds.
+Spritely is a simple, lightweight jQuery plugin for animating sprites and dynamic scrolling backgrounds. For more information about Spritely, see [the website](http://spritely.net) or the [jQuery Plugins page](http://plugins.jquery.com/spritely/).
 
 ## Documentation and examples
 

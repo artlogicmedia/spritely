@@ -5,7 +5,8 @@
     "keywords": [
         "css",
         "sprites",
-        "animation"
+        "animation",
+        "background animation"
     ],
 
     "version": "0.6.4",
@@ -36,6 +37,7 @@
     "bugs": "https://github.com/artlogicmedia/spritely/issues",
     "homepage": "http://www.spritely.net/",
     "docs": "http://www.spritely.net/documentation/",
+    "demo": "http://www.spritely.net/gallery/",
     "download": "http://www.spritely.net/download/",
     "dependencies": {
         "jquery": ">=1.3"
