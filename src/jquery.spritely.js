@@ -144,7 +144,7 @@
         },
         getBgUseXY: (function() {
             try {
-                return !!$('body').css('background-position-x');
+                return typeof $('body').css('background-position-x') == 'string';
             } catch(e) {
                 return false;
             }
@@ -551,7 +551,7 @@
             var el = $(this);
             var el_id = $(this).attr('id');
             if ($._spritely.instances[el_id] && $._spritely.instances[el_id]['timeout']){
-                window.clearInterval($._spritely.instances[el_id]['timeout']);
+                window.clearTimeout($._spritely.instances[el_id]['timeout']);
             }
             if ($._spritely.instances[el_id] && $._spritely.instances[el_id]['interval']) {
                 window.clearInterval($._spritely.instances[el_id]['interval']);
