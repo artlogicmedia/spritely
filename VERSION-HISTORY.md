@@ -3,6 +3,10 @@
 
 To download previous releases of Spritely, see [this repostory](https://github.com/artlogicmedialtd/spritely-archive).
 
+## Version 0.6.5
+* Better detection of 'background-position-x' CSS support
+* Fix incorrect use of clearInterval in $.fn.destroy()
+
 ## Version 0.6.4
 * Added metadata information for plugins.jquery.com, and incrimented the version number. (No actual changes to Spritely.)
 
