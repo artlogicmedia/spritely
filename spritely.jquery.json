@@ -6,7 +6,7 @@
         "css",
         "sprites",
         "animation",
-        "background animation"
+        "ui"
     ],
 
     "version": "0.6.5",
