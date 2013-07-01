@@ -3,6 +3,10 @@
 
 To download previous releases of Spritely, see [this repostory](https://github.com/artlogicmedialtd/spritely-archive).
 
+## Version 0.6.6
+
+* Fix an issue that causes the background image position to reset along the panned axis before animation begins.
+
 ## Version 0.6.5
 * Better detection of 'background-position-x' CSS support
 * Fix incorrect use of clearInterval in $.fn.destroy()

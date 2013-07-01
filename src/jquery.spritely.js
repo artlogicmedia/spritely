@@ -90,7 +90,9 @@
                     // As we pan, reduce the offset to the smallest possible
                     // value to ease the load on the browser. This step is
                     // skipped if the image hasn't loaded yet.
-                    var speed = options.speed || 1;
+                    var speed = options.speed || 1,
+                        start_x = $._spritely.instances[el_id]['l'] || parseInt($._spritely.getBgX(el).replace('px', ''), 10) || 0,
+                        start_y = $._spritely.instances[el_id]['t'] || parseInt($._spritely.getBgY(el).replace('px', ''), 10) || 0;
 
                     switch (options.dir) {
 
@@ -98,8 +100,8 @@
                             speed *= -1;
                         case 'down':
                             if (!$._spritely.instances[el_id]['l'])
-                                $._spritely.instances[el_id]['l'] = $._spritely.getBgX(el).replace('px', '');
-                            $._spritely.instances[el_id]['t'] = ($._spritely.instances[el_id]['t'] + speed) || 0;
+                                $._spritely.instances[el_id]['l'] = start_x;
+                            $._spritely.instances[el_id]['t'] = start_y + speed;
                             if (options.img_height)
                                 $._spritely.instances[el_id]['t'] %= options.img_height;
                             break;
@@ -108,11 +110,12 @@
                             speed *= -1;
                         case 'right':
                             if (!$._spritely.instances[el_id]['t'])
-                                $._spritely.instances[el_id]['t'] = $._spritely.getBgY(el).replace('px', '');
-                            $._spritely.instances[el_id]['l'] = ($._spritely.instances[el_id]['l'] + speed) || 0;
+                                $._spritely.instances[el_id]['t'] = start_y;
+                            $._spritely.instances[el_id]['l'] = start_x + speed;
                             if (options.img_width)
                                 $._spritely.instances[el_id]['l'] %= options.img_width;
                             break;
+
                     }
 
                     // When assembling the background-position string, care must be taken
@@ -214,7 +217,7 @@
             var $this = $(this),
                 el_id = $this.attr('id'),
                 background_image = (new Image()),
-                background_image_src = $._spritely._spStrip($this.css('background-image'), 'url("); ');
+                background_image_src = $._spritely._spStrip($this.css('background-image') || '', 'url("); ');
 
             options = $.extend({
                     type: 'sprite',
