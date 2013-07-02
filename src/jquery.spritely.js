@@ -20,10 +20,12 @@
                 return this;
             }
             options = $.extend(options, $._spritely.instances[el_id] || {});
-            if (options.play_frames && !$._spritely.instances[el_id]['remaining_frames']) {
-                $._spritely.instances[el_id]['remaining_frames'] = options.play_frames + 1;
-            }
             if (options.type == 'sprite' && options.fps) {
+                if (options.play_frames && !$._spritely.instances[el_id]['remaining_frames']) {
+                    $._spritely.instances[el_id]['remaining_frames'] = options.play_frames + 1;
+                } else if (options.do_once && !$._spritely.instances[el_id]['remaining_frames']) {
+                    $._spritely.instances[el_id]['remaining_frames'] = options.no_of_frames;
+                }
                 var frames;
                 var animate = function(el) {
                     var w = options.width, h = options.height;
@@ -94,6 +96,22 @@
                         start_x = $._spritely.instances[el_id]['l'] || parseInt($._spritely.getBgX(el).replace('px', ''), 10) || 0,
                         start_y = $._spritely.instances[el_id]['t'] || parseInt($._spritely.getBgY(el).replace('px', ''), 10) || 0;
 
+                    if (options.do_once && !$._spritely.instances[el_id].remaining_frames || $._spritely.instances[el_id].remaining_frames <= 0) {
+                        switch(options.dir) {
+                            case 'up':
+                            case 'down':
+                                $._spritely.instances[el_id].remaining_frames = Math.floor((options.img_height || 0) / speed);
+                                break;
+                            case 'left':
+                            case 'right':
+                                $._spritely.instances[el_id].remaining_frames = Math.floor((options.img_width || 0) / speed);
+                                break;
+                        }
+                        $._spritely.instances[el_id].remaining_frames++;
+                    } else if (options.do_once) {
+                        $._spritely.instances[el_id].remaining_frames--;
+                    }
+
                     switch (options.dir) {
 
                         case 'up':
@@ -135,6 +153,10 @@
                     }
 
                     $(el).css('background-position', bg_left + bg_top);
+
+                    if (options.do_once && !$._spritely.instances[el_id].remaining_frames) {
+                        return this;
+                    }
                 }
             }
             $._spritely.instances[el_id]['options'] = options;
@@ -219,7 +241,9 @@
                 background_image = (new Image()),
                 background_image_src = $._spritely._spStrip($this.css('background-image') || '', 'url("); ');
 
-            options = $.extend({
+            background_image.onload = function() {
+
+                options = $.extend({
                     type: 'sprite',
                     do_once: false,
                     width: null,
@@ -228,50 +252,50 @@
                     img_height: 0,
                     fps: 12,
                     no_of_frames: 2,
-                    stop_after: null
+                    play_frames: 0
                 }, options || {});
 
-            background_image.onload = function() {
                 options.img_width = background_image.width;
                 options.img_height = background_image.height;
+
+                options.img = background_image;
+
+                if (!$._spritely.instances) {
+                    $._spritely.instances = {};
+                }
+
+                if (!$._spritely.instances[el_id]) {
+                    if (options.start_at_frame) {
+                        $._spritely.instances[el_id] = {current_frame: options.start_at_frame - 1};
+                    } else {
+                        $._spritely.instances[el_id] = {current_frame: -1};
+                    }
+                }
+
+                $._spritely.instances[el_id]['type'] = options.type;
+                $._spritely.instances[el_id]['depth'] = options.depth;
+
+                options.el = $this;
+                options.width = options.width || $this.width() || 100;
+                options.height = options.height || $this.height() || 100;
+
+                var get_rate = function() {
+                    return parseInt(1000 / options.fps);
+                }
+
+                if (!options.do_once) {
+                    setTimeout(function() {
+                        $._spritely.animate(options);
+                    }, get_rate(options.fps));
+                } else {
+                    setTimeout(function() {
+                        $._spritely.animate(options);
+                    }, 0);
+                }
+
             }
 
             background_image.src = background_image_src;
-
-            options.img = background_image;
-
-            if (!$._spritely.instances) {
-                $._spritely.instances = {};
-            }
-
-            if (!$._spritely.instances[el_id]) {
-                if (options.start_at_frame) {
-                    $._spritely.instances[el_id] = {current_frame: options.start_at_frame - 1};
-                } else {
-                    $._spritely.instances[el_id] = {current_frame: -1};
-                }
-            }
-
-            $._spritely.instances[el_id]['type'] = options.type;
-            $._spritely.instances[el_id]['depth'] = options.depth;
-
-            options.el = this;
-            options.width = options.width || $this.width() || 100;
-            options.height = options.height || $this.height() || 100;
-
-            var get_rate = function() {
-                return parseInt(1000 / options.fps);
-            }
-
-            if (!options.do_once) {
-                setTimeout(function() {
-                    $._spritely.animate(options);
-                }, get_rate(options.fps));
-            } else {
-                setTimeout(function() {
-                    $._spritely.animate(options);
-                }, 0);
-            }
 
             return this;
 

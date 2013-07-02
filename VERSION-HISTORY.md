@@ -3,6 +3,29 @@
 
 To download previous releases of Spritely, see [this repostory](https://github.com/artlogicmedialtd/spritely-archive).
 
+## Version 0.6.7
+
+* Removed the erroneous 'stop_after' key from the default options object.
+* The synonymous 'play_frames' option has now been fixed, and can be used to play only a set number of frames of animation. Note that this option only applies to sprite animations. It is used like so:
+
+```javascript
+    $('#sprite').sprite({
+        no_of_frames: 5,
+        fps: 12,
+        play_frames: 36 // Play through the animation three times and then stop.
+    });
+```
+
+* Fixed the 'do_once' option, which plays through the animation one time and then stops on the last frame (and works for both sprite and panning animations):
+
+```javascript
+    $('#sprite').sprite({
+        no_of_frames: 5,
+        fps: 12,
+        do_once: true
+    });
+```
+
 ## Version 0.6.6
 
 * Fix an issue that causes the background image position to reset along the panned axis before animation begins.
