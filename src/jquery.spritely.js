@@ -461,20 +461,21 @@
             return $._spritely.instances[el_id][prop_name];
         },
         spStop: function(bool) {
-            $(this).each(function() {
-                var el_id = $(this).attr('id');
+            this.each(function() {
+                var $this = $(this),
+                    el_id = $this.attr('id');
                 if ($._spritely.instances[el_id]['options']['fps']) {
                     $._spritely.instances[el_id]['_last_fps'] = $._spritely.instances[el_id]['options']['fps'];
                 }
+                if ($._spritely.instances[el_id]['type'] == 'sprite') {
+                    $this.spSet('fps', 0);
+                }
                 $._spritely.instances[el_id]['_stopped'] = true;
                 $._spritely.instances[el_id]['_stopped_f1'] = bool;
-                if ($._spritely.instances[el_id]['type'] == 'sprite') {
-                    $(this).spSet('fps', 0);
-                }
                 if (bool) {
                     // set background image position to 0
                     var bp_top = $._spritely.getBgY($(this));
-                    $(this).css('background-position', '0 ' + bp_top);
+                    $this.css('background-position', '0 ' + bp_top);
                 }
             });
             return this;
