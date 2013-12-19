@@ -239,7 +239,6 @@
             var $this = $(this),
                 el_id = $this.attr('id'),
                 
-
                 options = $.extend({
                     type: 'sprite',
                     do_once: false,
@@ -250,7 +249,10 @@
                     fps: 12,
                     no_of_frames: 2,
                     play_frames: 0
-                }, options || {});
+                }, options || {}),
+
+                background_image = (new Image()),
+                background_image_src = $._spritely._spStrip($this.css('background-image') || '', 'url("); ');
 
                 if (!$._spritely.instances) {
                     $._spritely.instances = {};
@@ -271,11 +273,8 @@
                 options.width = options.width || $this.width() || 100;
                 options.height = options.height || $this.height() || 100;
 
-                
-                background_image = (new Image()),
-                background_image_src = $._spritely._spStrip($this.css('background-image') || '', 'url("); ');
-
             background_image.onload = function() {
+
                 options.img_width = background_image.width;
                 options.img_height = background_image.height;
 
