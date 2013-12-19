@@ -13,6 +13,7 @@
 (function($) {
     $._spritely = {
         // shared methods and variables used by spritely plugin
+        instances: {},
         animate: function(options) {
             var el = $(options.el);
             var el_id = el.attr('id');
@@ -253,10 +254,6 @@
 
                 background_image = (new Image()),
                 background_image_src = $._spritely._spStrip($this.css('background-image') || '', 'url("); ');
-
-                if (!$._spritely.instances) {
-                    $._spritely.instances = {};
-                }
 
                 if (!$._spritely.instances[el_id]) {
                     if (options.start_at_frame) {
