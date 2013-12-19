@@ -3,6 +3,11 @@
 
 To download previous releases of Spritely, see [this repostory](https://github.com/artlogicmedialtd/spritely-archive).
 
+## Version 0.6.8
+
+* Fixed an incorrect intialization of $._spritely.instances that was causing the
+  plugin to break.
+
 ## Version 0.6.7
 
 * Removed the erroneous 'stop_after' key from the default options object.
