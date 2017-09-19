@@ -32,7 +32,7 @@
                     var w = options.width, h = options.height;
                     if (!frames) {
                         frames = [];
-                        total = 0
+                        var total = 0
                         for (var i = 0; i < options.no_of_frames; i ++) {
                             frames[frames.length] = (0 - total);
                             total += w;
